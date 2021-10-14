@@ -16,6 +16,7 @@ function [Kel] = matK_elem(S1, S2, S3)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+global epsilon;
 
 % preliminaires, pour faciliter la lecture:
 x1 = S1(1); y1 = S1(2);
@@ -45,7 +46,7 @@ for i=1:3
   for j=1:3
     % Kel(i,j) = norm(i,:)*norm(j,:)'/(2*D);
     for k=1:4
-        Kel(i,j) = Kel(i,j) + w_hat(k)*(A(x1+M_hat(k,1)*(x2-x1)+M_hat(k,2)*(x3-x1),y1+M_hat(k,1)*(y2-y1)+M_hat(k,2)*(y3-y1))*((dF')^(-1)*gradW(:,i)))'*((dF')^(-1)*gradW(:,j))*abs(D);
+        Kel(i,j) = Kel(i,j) + w_hat(k)*(A((x1+M_hat(k,1)*(x2-x1)+M_hat(k,2)*(x3-x1))/eps,(y1+M_hat(k,1)*(y2-y1)+M_hat(k,2)*(y3-y1))/eps)*((dF')^(-1)*gradW(:,i)))'*((dF')^(-1)*gradW(:,j))*abs(D);
     end
   end; % j
 end; % i

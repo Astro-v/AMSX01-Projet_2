@@ -2,18 +2,18 @@
 %
 %
 % une routine pour la mise en oeuvre des EF P1 Lagrange
-% pour l'equation de Laplace suivante, avec conditions de
-% Dirichlet sur le maillage nom_maillage.msh
-%
-% | -\Delta u + u= f,   dans \Omega
-% |         u = 0,   sur le bord
-%
+% pour l'equation de Laplace suivante, avec A 1-periodique
+% et u_eps avec des condition de Dirichlet
+% 
 % =====================================================
 
+clear();
+
+global eps; eps = 5e-1;
 
 % lecture du maillage et affichage
 % ---------------------------------
-nom_maillage = 'geomCarre01.msh';
+nom_maillage = 'geomCarre_per.msh';
 [Nbpt,Nbtri,Coorneu,Refneu,Numtri,Reftri,Nbaretes,Numaretes,Refaretes]=lecture_msh(nom_maillage);
 
 % ----------------------
@@ -55,11 +55,11 @@ end % for l
 FF = f(Coorneu(:,1),Coorneu(:,2));
 LL = MM*FF;
 
-% Projection sur l espace V_0
+% Projection sur l espace V_p
 % matrice de projection 
 N0 = Nbpt-sum(Refneu~=0);
 PP = sparse([zeros(N0,sum(Refneu~=0)) eye(N0)]);
-AA = MM+KK;
+AA = KK;
 AA0 = PP*AA*PP';
 LL0 = PP*LL;
 
@@ -72,14 +72,14 @@ UU = PP'*UU0;
 
 % visualisation
 % -------------
-affiche(UU, Numtri, Coorneu, sprintf('Dirichlet - %s', nom_maillage));
+affiche(UU, Numtri, Coorneu, sprintf('Micro periodique - %s', 'geomCarre\_per.msh'));
 
-validation = 'oui';
+validation = 'non';
 % validation
 % ----------
 if strcmp(validation,'oui')
-UU_exact = sin(pi*Coorneu(:,1)).*sin(2*pi*Coorneu(:,2));
-affiche(UU_exact, Numtri, Coorneu, sprintf('Dirichlet exact - %s', nom_maillage));
+UU_exact = sin(pi*Coorneu(:,1)).*sin(pi*Coorneu(:,2));
+affiche(UU_exact, Numtri, Coorneu, sprintf('Micro periodique exact - %s', 'geomCarre\_per.msh'));
 % Calcul de l erreur L2
 EE_L2 = (UU_exact-UU)'*MM*(UU_exact-UU);
 log(sqrt(EE_L2/(UU_exact'*MM*UU_exact)))
@@ -88,19 +88,3 @@ EE_H1 = (UU_exact-UU)'*(KKb)*(UU_exact-UU);
 log(sqrt(EE_H1/(UU_exact'*(KKb)*UU_exact)))
 % attention de bien changer le terme source (dans FF)
 end
-if 1
-    h = [0.2;0.1;0.05;0.025];
-    err_L2 = [-2.1850;-3.5005;-4.8852;-6.2674];
-    err_H1 = [-2.1776;-3.4338;-4.8443;-6.1908];
-    h = log(1./h);
-
-    figure()
-    plot(h,err_L2,h,err_H1)
-    legend('Norme L^2','Norme H^1')
-    xlabel({'$\log(1/h)$'},'Interpreter','latex')
-    ylabel({'$\log(\Vert u-u_h\Vert/\Vert u\Vert)$'},'Interpreter','latex')
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                        fin de la routine
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-

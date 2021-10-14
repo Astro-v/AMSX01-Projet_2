@@ -10,12 +10,9 @@ function val = f(x,y)
 % OUTPUT - val: valeur de la fonction sur ce point.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%A COMPLETER
-%val = (1+2*pi^2)*cos(pi*x).*cos(pi*y);
-%val = cos(2*pi*x).*cos(2*pi*y)+16*pi^2*(cos(2*pi*x).*cos(2*pi*y).*(sin(2*pi*x).*sin(2*pi*y)+1));
-%val = (1+5*pi^2)*sin(pi*x).*sin(2*pi*y);
-
-val = (1+2*pi^2)*sin(pi*x+pi/2).*sin(pi*y+pi/2);
+% val = 2*pi^2*sin(pi*x).*sin(pi*y); % Pour A = I
+% val = 3*pi^2*sin(pi*x).*sin(pi*y); % Pour A = [1,0;0,2]
+val = 2*pi^2*sin(pi*x).*sin(pi*y); % Pour A = [1,0;0,2]
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
