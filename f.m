@@ -12,7 +12,8 @@ function val = f(x,y)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % val = 2*pi^2*sin(pi*x).*sin(pi*y); % Pour A = I
 % val = 3*pi^2*sin(pi*x).*sin(pi*y); % Pour A = [1,0;0,2]
-val = 2*pi^2*sin(pi*x).*sin(pi*y); % Pour A = [1,0;0,2]
+% val = pi^2*(-2*cos(2*pi*x).*cos(pi*x)+sin(2*pi*x).*sin(pi*x)+6*sin(pi*x)).*sin(pi*y); % Pour A = [2 + sin(2*pi*x),0;0,4]
+val = pi^2*(-2*cos(3*pi*x)+6*sin(pi*x)).*sin(pi*y); % Pour A = [2 + sin(2*pi*x),0;0,4 + sin(2*pi*x)]
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

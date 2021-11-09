@@ -9,11 +9,12 @@
 
 clear();
 
-global eps; eps = 5e-1;
+global ast; ast = 'non';
+global epsilon; epsilon = 1e-5;
 
 % lecture du maillage et affichage
 % ---------------------------------
-nom_maillage = 'geomCarre_per.msh';
+nom_maillage = 'geomCarre_per005.msh';
 [Nbpt,Nbtri,Coorneu,Refneu,Numtri,Reftri,Nbaretes,Numaretes,Refaretes]=lecture_msh(nom_maillage);
 
 % ----------------------
@@ -74,17 +75,17 @@ UU = PP'*UU0;
 % -------------
 affiche(UU, Numtri, Coorneu, sprintf('Micro periodique - %s', 'geomCarre\_per.msh'));
 
-validation = 'non';
+validation = 'oui';
 % validation
 % ----------
 if strcmp(validation,'oui')
 UU_exact = sin(pi*Coorneu(:,1)).*sin(pi*Coorneu(:,2));
 affiche(UU_exact, Numtri, Coorneu, sprintf('Micro periodique exact - %s', 'geomCarre\_per.msh'));
 % Calcul de l erreur L2
-EE_L2 = (UU_exact-UU)'*MM*(UU_exact-UU);
+EE_L2 = (UU_exact-UU)'*MM*(UU_exact-UU)
 log(sqrt(EE_L2/(UU_exact'*MM*UU_exact)))
 % Calcul de l erreur H1
-EE_H1 = (UU_exact-UU)'*(KKb)*(UU_exact-UU);
+EE_H1 = (UU_exact-UU)'*(KKb)*(UU_exact-UU)
 log(sqrt(EE_H1/(UU_exact'*(KKb)*UU_exact)))
 % attention de bien changer le terme source (dans FF)
 end

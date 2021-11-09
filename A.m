@@ -21,7 +21,7 @@ if (ast=='non')
 
     %val = [2+sin(2*pi*x),0;0,4];
 
-    val = [2+sin(2*pi*x),0;0,4+sin(2*pi*y)];
+    val = [2+sin(2*pi*x),0;0,4+sin(2*pi*x)];
 
     %val = (2+sin(2*pi*x))*(4+sin(2*pi*y))*[1,0;0,1];
 else
